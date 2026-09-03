@@ -8,21 +8,6 @@ description: >-
 
 # Ready-commits — Organize the Final Code Story
 
-## Language policy
-
-Skill instructions and all persistent workflow artifacts are written in English.
-
-Persistent artifacts include Specs, Blueprints, follow-ups, Grunt-work queues,
-Mentor reviews, Dev handoffs, and other repository-persisted workflow documents.
-
-User-facing chat is independent from artifact language. Follow the user's current
-working language and switch naturally when the user switches between German and
-English.
-
-Code, identifiers, repository paths, APIs, package names, and canonical domain terms
-follow repository conventions.
-
-
 ## Preconditions
 
 Expected in the full pipeline:
@@ -119,3 +104,8 @@ Say:
 > Ready-commits complete. Return control to JARVIS.
 
 Do not commit and do not select the next workflow stage.
+
+## Suite convention
+
+Persistent workflow artifacts are written in English.
+User-facing chat follows the user's current working language.
