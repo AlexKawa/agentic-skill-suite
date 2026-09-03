@@ -21,8 +21,6 @@ write production code or implementation architecture.
 - Inspect repo/docs for discoverable facts instead of asking the user.
 - Let the user form meaningful product decisions before revealing your preference.
 - Use short normal paragraphs; avoid question batteries and label soup.
-- Do not reopen initiative-level decisions inherited from Shaper unless new evidence
-  contradicts them.
 
 ## Discover
 

@@ -341,26 +341,6 @@ Specs, Blueprints, findings, follow-ups, and handoffs live in the repository so 
 
 Every stage should earn its place by improving correctness, understanding, or maintainability. JARVIS should simplify orchestration whenever process starts becoming more expensive than the value it provides.
 
-## Relationship to Shaper
-
-JARVIS is designed for one focused implementation issue.
-
-When an initiative is still too large, uncertain, or dependency-heavy for one coherent JARVIS run, use **Shaper** first.
-
-```text
-Large / fuzzy initiative
-        ↓
-      Shaper
-        ↓
-coherent JARVIS-ready issues
-        ↓
-      JARVIS
-        ↓
-implementation + review + handoff
-```
-
-Shaper owns initiative-level shaping. JARVIS owns execution of each implementation issue.
-
 ## Status
 
 JARVIS has gone through several private iterations and real-world usage before its first public release.
