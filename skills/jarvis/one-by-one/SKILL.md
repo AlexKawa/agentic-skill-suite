@@ -74,9 +74,14 @@ JARVIS instead of silently redesigning.
 
 ## Chunk message template
 
-After implementation, every chunk uses exactly these sections, in this order, every
-time — in the current chat language (titles too). Do not drop, merge, rename, or
-reorder them. The only exception: omit **Checks** when no meaningful check ran.
+After implementation, every chunk uses these sections in this order — in the current
+chat language (titles too). Never reorder, merge, or rename the required sections.
+
+- **Always:** Changed files, In short, Important code, Next.
+- **Before → after:** include when runtime, behavior, ownership, or data flow changed.
+  Omit it for chunks where no useful flow comparison exists, such as types, config,
+  locales, or pure renames.
+- **Checks:** include only when checks actually ran.
 
 ```markdown
 ### Chunk N/M — <title> ✓

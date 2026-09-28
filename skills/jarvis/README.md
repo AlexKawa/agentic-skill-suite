@@ -121,8 +121,8 @@ After every chunk, the developer sees the same fixed message:
 Changed files     every file, linked, with a one-line role
 In short          3–5 simple sentences explaining the chunk
 Important code    1–3 focused excerpts with chat-only teaching comments
-Before → after    tiny runtime/behavior flow
-Checks            only checks actually run
+Before → after    tiny runtime/behavior flow (when the flow changed)
+Checks            only when checks actually ran
 Next              short preview of the next chunk
 ```
 

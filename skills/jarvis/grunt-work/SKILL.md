@@ -41,10 +41,11 @@ root cause.
 After the fix, use the One-by-one chunk message shape, scaled down:
 
 - **Changed files** — every file, linked, with its role in the fix.
-- **Before → after** — 2–5 steps through the relevant code.
 - **In short** — 2–3 simple sentences: what was wrong, what changed, where to look if
   it comes back.
-- **Checks** — focused checks actually run.
+- **Before → after** — include only when runtime, behavior, ownership, or data flow
+  changed; otherwise omit it.
+- **Checks** — only when checks actually ran.
 - **Next** — preview of the next queue item.
 
 Update `grunt-work.md`, then stop.
