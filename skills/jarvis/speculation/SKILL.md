@@ -77,9 +77,7 @@ work/{work-id}/follow-ups.md
 ## Completion contract
 
 Summarize the approved Spec in chat, then stop. JARVIS closes the response with its
-card and waits for the user.
-
-Do not start or name the next workflow stage yourself. JARVIS owns ordering.
+card (nothing after it) and waits for the user. Do not start or name the next stage.
 
 ## Suite convention
 

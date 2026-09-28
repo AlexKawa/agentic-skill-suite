@@ -1,36 +1,24 @@
 ---
 name: grunt-work
 description: >-
-  Handles concrete post-implementation remarks in the HOME JARVIS chat. Triages the
-  full queue, then fixes exactly one local root cause per go using the same coding
-  model. Escalates larger work instead of creating another planning/session layer.
+  Handles concrete post-implementation remarks and Mentor findings in the HOME JARVIS
+  chat. Triages the full queue, then fixes exactly one local root cause per go using
+  the same coding model. Escalates larger work instead of hiding it as a small fix.
 ---
 
 # Grunt-work — Small Corrections, One at a Time
 
-## Session rule
-
-Grunt-work stays in the **HOME chat** and uses the same capable coding model as
-One-by-one.
-
-Do not request a new chat, fork, or planning-model switch merely because Grunt-work
-started.
+Grunt-work stays in the **HOME chat** with the same coding model as One-by-one. Never
+ask for a new chat, fork, or model switch because Grunt-work started.
 
 ## Input
 
-The user may send all concrete remarks at once.
-
-Persist them in English:
-
-```text
-work/{work-id}/grunt-work.md
-```
-
-Do not create one file/ticket for every trivial remark.
+The user may send all remarks at once (or they come from Mentor findings). Persist the
+queue in English in `work/{work-id}/grunt-work.md` — one file, not one per remark.
 
 ## First turn: triage only
 
-Classify the whole queue before code:
+Classify the whole queue before any code:
 
 ```text
 Safe Grunt
@@ -41,43 +29,30 @@ Duplicate / same root cause
 Deferred
 ```
 
-Merge remarks that share one root cause.
+Merge remarks that share one root cause. Then preview only the first Safe Grunt item
+and wait for `go`.
 
-Then preview only the first Safe Grunt item and wait for `go`.
+## One root cause per go
 
-## One issue per go
+Preview the current item: observed behavior, actual root cause after inspection,
+smallest fix, files/area, and what stays untouched. `go` authorizes exactly that one
+root cause.
 
-For the current item show:
+After the fix, use the One-by-one chunk message shape, scaled down:
 
-- observed behavior,
-- actual/root cause after inspection,
-- smallest fix,
-- files/area,
-- what remains untouched.
+- **Changed files** — every file, linked, with its role in the fix.
+- **Before → after** — 2–5 steps through the relevant code.
+- **In short** — 2–3 simple sentences: what was wrong, what changed, where to look if
+  it comes back.
+- **Checks** — focused checks actually run.
+- **Next** — preview of the next queue item.
 
-`go` authorizes exactly one root cause.
-
-After implementation show:
-
-### What changed
-2–3 sentences.
-
-### Flow after the fix
-2–5 steps through the relevant code.
-
-### Ownership
-Small table of changed code + responsibility + why.
-
-### Checks
-Focused checks actually run.
-
-Update `grunt-work.md`, preview the next queue item, and stop.
+Update `grunt-work.md`, then stop.
 
 ## Escalation
 
-Do not hide larger work as a small fix.
-
-Return control to JARVIS when the clean fix requires:
+Do not hide larger work as a small fix. Stop and hand back to JARVIS — no code — when
+the clean fix needs:
 
 ```text
 new/meaningful implementation mechanism → One-by-one
@@ -85,16 +60,11 @@ responsibility/architecture change       → Blueprint
 new/unclear product rule                 → Speculation
 ```
 
-No code for an escalated item.
-
 ## Completion contract
 
-Each root cause ends the response: fix it, preview the next item, stop.
-
-When all items are Fixed / Escalated / Deferred / Duplicate, summarize counts, then
-stop. JARVIS closes the response with its card and waits for the user.
-
-Do not start or select the next workflow stage.
+Each root cause ends the response. When all items are Fixed / Escalated / Deferred /
+Duplicate, summarize the counts and stop. JARVIS closes the response with its card
+(nothing after it) and waits for the user. Do not start or select the next stage.
 
 ## Suite convention
 

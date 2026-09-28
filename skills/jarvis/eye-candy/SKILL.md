@@ -53,7 +53,7 @@ For each accepted candidate:
 
 ## Escalate
 
-Return control to JARVIS if a "readability" cleanup actually needs:
+Stop and hand back to JARVIS if a "readability" cleanup actually needs:
 
 ```text
 behavior decision            → One-by-one
@@ -64,10 +64,10 @@ reduction/residue question   → Refine
 
 ## Completion contract
 
-When all accepted candidates are done (or the scan is clean), stop. JARVIS closes the
-response with its card and waits for the user.
-
-Do not select Mentor-me yourself; JARVIS owns the session transition.
+Each cleanup block ends the response. When all accepted candidates are done (or the
+scan is clean), stop. JARVIS closes the response with its card (nothing after it) and
+waits for the user. Do not start or select the next stage — JARVIS owns the Mentor
+session transition.
 
 ## Suite convention
 

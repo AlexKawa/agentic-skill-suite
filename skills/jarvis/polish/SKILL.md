@@ -52,11 +52,9 @@ Polish must not silently perform changes to:
 
 If a quality rule requires such a change:
 
-1. stop,
-2. report the concrete issue,
-3. return control to JARVIS,
-4. let JARVIS route the fix,
-5. require Mentor verification afterward.
+1. stop and report the concrete issue,
+2. let JARVIS route the fix,
+3. require Mentor verification afterward.
 
 Pure formatting/import/mechanical cleanup does not require Mentor re-review.
 
@@ -77,11 +75,9 @@ List:
 
 ## Completion contract
 
-After the output, stop. JARVIS closes the response with its card and waits for the
-user.
-
-Do not start or select the next workflow stage — Ready-commits always waits for a
-later message.
+After the output, stop. JARVIS closes the response with its card (nothing after it)
+and waits for the user. Do not start or select the next stage — Ready-commits always
+waits for a later message.
 
 ## Suite convention
 

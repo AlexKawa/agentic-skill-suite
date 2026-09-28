@@ -11,35 +11,18 @@ description: >-
 
 ## Goal
 
-The developer should understand the feature **while the code is being built**, not
-learn a finished diff afterwards.
+The developer should understand the feature **while it is being built**, not learn a
+finished diff afterwards. After each chunk they know why the code exists, where it
+sits, what changed, which code matters, and what behaves differently.
 
-A chunk is not complete from an ownership perspective until the developer has seen:
-
-> Why this code exists → where it sits → what changed → the important code →
-> what behavior is different → what to remember.
-
-Keep explanations small enough to absorb before moving to the next chunk.
-
-## Teaching principle
-
-Prefer a combination of:
-
-- a few connected sentences,
-- focused code,
-- a tiny before/after flow.
-
-Do not replace explanation with a wall of prose, a raw diff, or a large code dump.
-
-Use technical terms when useful, but explain unfamiliar ones briefly in normal
-language.
+Teach with a few connected sentences, focused code, and a tiny before/after flow — not
+a wall of prose, a raw diff, or a code dump. Explain unfamiliar technical terms briefly
+in normal language.
 
 ### Chat annotations, not production comments
 
-When a code excerpt is easier to understand with comments, add teaching comments
-inside the **chat code block**.
-
-Example:
+When an excerpt is easier to understand with comments, add teaching comments inside
+the **chat code block** only:
 
 ```ts
 // 1. Compare the actual content, not only the array reference.
@@ -51,99 +34,48 @@ if (nextKey === previousKey) {
 }
 ```
 
-These teaching comments are **not instructions to modify the repository**.
-
-Only add a comment to production code when it is genuinely useful to a future
-maintainer without the JARVIS conversation. Polish should never need to remove
-temporary teaching comments because temporary teaching comments stay in chat.
+Teaching comments never go into the repository. Add a production comment only when it
+helps a future maintainer who never saw this conversation.
 
 ## Chunk size gate
 
-One-by-one chunks must be small enough to teach immediately.
-
-A normal chunk should be explainable with:
-
-- one coherent responsibility,
-- roughly 1–3 focused code excerpts,
-- one compact before/after mental model.
-
-If a planned chunk contains several independent responsibilities or would require a
-long walkthrough to understand, split it **before implementation**. Do not solve an
-oversized chunk by writing a larger explanation afterwards.
+A chunk has one coherent responsibility, 1–3 focused excerpts, and one compact
+before/after model. If a planned chunk needs several independent explanations, split
+it **before implementation** — never fix an oversized chunk with a longer explanation.
 
 ## First entry after Blueprint
 
-Do not code.
+Do not code. Show:
 
-Show:
+1. **Implementation overview** — 2–3 simple sentences: the whole change and its
+   dependency order.
+2. **Chunk overview** — a compact table of all chunks with exactly one `NEXT`.
+3. **Chunk 1 preview** — why it exists, where it sits in the feature flow, current →
+   target behavior, main files/symbols, and what is explicitly not part of it.
 
-### Implementation overview
-
-2–3 simple sentences describing the whole change and dependency order.
-
-### Chunk overview
-
-A compact table with all chunks and exactly one `NEXT`.
-
-### Chunk 1 preview
-
-Keep this short. Explain:
-
-- **Why this chunk exists**
-- **Where it sits in the feature flow**
-- **Current → target behavior**
-- the main file/symbols likely involved,
-- what is explicitly not part of this chunk.
-
-The developer should know what they are about to build before `go`, but should not
-need to read a mini design document.
-
-Ask at most one material ownership decision.
-
-Then wait for `go`.
+Ask at most one material ownership decision, then wait for `go`.
 
 ## Ownership decisions
 
-Ask only when a choice changes:
-
-- state/responsibility ownership,
-- layer/boundary placement,
-- reuse vs meaningful new abstraction,
-- public/API shape,
-- lifecycle,
-- important failure behavior.
-
-Do not reveal your preference before the user answers.
-
-After the answer, compare honestly and record the decision.
-
-`go` authorizes exactly one already-previewed chunk.
+Ask only when a choice changes state/responsibility ownership, layer placement, reuse
+vs. new abstraction, public/API shape, lifecycle, or important failure behavior. Do
+not reveal your preference before the user answers; then compare honestly and record
+the decision.
 
 ## Implementation
 
-After `go`:
+`go` authorizes exactly one already-previewed chunk. Implement only that chunk, reuse
+repo patterns, no scope creep or opportunistic cleanup. Run focused tests/type checks
+when useful; no browser smoke, no broad lint/Prettier loop.
 
-- implement only the current chunk,
-- reuse repo patterns,
-- no scope creep,
-- no opportunistic cleanup,
-- run focused tests/type/compile checks when useful,
-- no browser smoke by default,
-- no broad lint/Prettier loop.
+If new evidence invalidates product or architecture assumptions, stop and hand back to
+JARVIS instead of silently redesigning.
 
-If new evidence invalidates product/architecture assumptions, stop and return control
-to JARVIS instead of silently redesigning.
+## Chunk message template
 
-## Understand the chunk
-
-After implementation, teach the chunk **before previewing the next one**.
-
-Use the current chat language (section titles too).
-
-### Chunk message template
-
-Every completed chunk uses exactly these sections, in this order, every time. Do not
-drop, merge, rename, or reorder them.
+After implementation, every chunk uses exactly these sections, in this order, every
+time — in the current chat language (titles too). Do not drop, merge, rename, or
+reorder them.
 
 ````markdown
 ### Chunk N/M — <title> ✓
@@ -169,40 +101,20 @@ drop, merge, rename, or reorder them.
 <2–3 sentence preview>
 ````
 
-The JARVIS card follows directly after the preview. On the last chunk, the **Final
-One-by-one output** replaces the Next section.
+The JARVIS card follows directly. On the last chunk, the **Final output** replaces the
+Next section.
 
-### 1. Changed files
+**Changed files** — every file created, modified, or deleted, including tests,
+locales, and config. One line each: clickable link + its role in this chunk. Deleted
+files get no link and say why they went.
 
-List **every** file this chunk created, modified, or deleted — including tests,
-locales, and config. One line each: a clickable markdown link to the file plus a short
-description of its role in this chunk. Deleted files have no link and say why they
-went.
+**Important code** — the code the developer should recognize later: the new control
+point, state owner, boundary, or transformation. Roughly 5–20 meaningful lines per
+excerpt; no full files, trivial imports, or boilerplate. If only one file holds the
+idea, show only that one; if several files each own part of the flow, show one small
+excerpt per responsibility.
 
-### 2. Important code
-
-Show the code the developer should actually recognize later.
-
-Rules:
-
-- normally 1–3 focused excerpts,
-- prefer roughly 5–20 meaningful lines per excerpt,
-- show the new/changed control point, state owner, boundary, or transformation,
-- add **chat-only teaching comments** where they reduce explanation,
-- do not dump full files,
-- do not show trivial imports/boilerplate merely for completeness.
-
-If several files changed but only one contains the important idea, show only that
-file; the changed-files list already covers the supporting files.
-
-If several changed files each own a meaningful part of the runtime flow, show a small
-representative excerpt for each responsibility.
-
-### 3. Before → after
-
-Show a tiny behavioral or runtime comparison.
-
-Example:
+**Before → after** — the mental model, not a second implementation explanation:
 
 ```text
 BEFORE
@@ -212,103 +124,48 @@ AFTER
 stream tick → compare content → unchanged → reuse existing input
 ```
 
-Keep it to the mental model, not a second implementation explanation.
+When there is no useful "before", use `NOW entry → new owner → boundary/result`.
 
-If the chunk only adds a new path and there is no useful "before", use:
+**In short** — 3–5 simple, connected sentences of plain prose: no bullets, no file
+list, no jargon (or explain a term in the same sentence), no review-note labels like
+`Owns:` / `Fix:`. Tell it like to a teammate: the gap before, what the chunk does
+now, why this is the right place, how it fits the feature so far. The last sentence
+says where to look first if this behavior breaks.
 
-```text
-NOW
-entry → new owner → boundary/result
-```
+Occasionally, when it genuinely reinforces the mental model, add one small ownership
+question after the paragraph (e.g. "If this started firing twice tomorrow, which layer
+would you inspect first?"). Never syntax trivia; it never blocks the next `go`.
 
-### 4. In short
+**Next** — 2–3 sentences: why it comes next, where it sits, current → target behavior.
 
-Close the teaching part with 3–5 simple, connected sentences — plain prose, no
-bullets, no file list, no jargon (or explain a term in the same sentence).
+## Final output
 
-Tell it like you would to a teammate: what was the problem or gap before, what the
-chunk does now, why that is the right place for it, and how it fits the feature so far.
-The last sentence says where to look first if this behavior breaks.
+After the last chunk, do not re-teach every file. Show:
 
-Avoid compressed review-note language such as:
+1. **Feature flow — front to back**: 4–8 concise steps from entry to observable result.
+2. **Ownership checkpoint**:
 
-```text
-Owns:
-Fix:
-Why it matters:
-```
+   ```text
+   Flow:
+   entry → owner → boundary → result
 
-Only occasionally, when it genuinely reinforces the mental model, add one small
-ownership question after the paragraph, such as:
+   Key ownership:
+   - ...
 
-> If this started firing twice tomorrow, which layer would you inspect first?
+   Debugging entry points:
+   - symptom → first place to inspect
+   ```
 
-Do not quiz syntax or trivia. The question is optional and must not block progress;
-the user may answer it together with the next `go`.
-
-### 5. Checks
-
-List only checks actually run.
-
-### 6. Next chunk
-
-Preview the next chunk in 2–3 short sentences using the same pre-`go` model:
-
-- why it comes next,
-- where it sits,
-- current → target behavior.
-
-Then wait for `go`.
-
-## Final One-by-one output
-
-After the last chunk, do not re-teach every file.
-
-### Feature flow — front to back
-
-4–8 concise steps from entry to final observable result.
-
-### Ownership checkpoint
-
-Capture the mental model built during the chunks:
-
-```text
-Flow:
-entry → owner → boundary → result
-
-Key ownership:
-- ...
-- ...
-- ...
-
-Debugging entry points:
-- symptom → first place to inspect
-- symptom → first place to inspect
-```
-
-This checkpoint describes the implementation at the end of One-by-one. Later JARVIS
-stages may simplify or reorganize code; Dev-handoff can surface only the meaningful
-differences.
-
-Do not create a separate persistent artifact for this checkpoint unless the wider
-workflow explicitly requests one.
-
-### What I would test manually
-
-3–7 high-signal scenarios based on the Spec and actual implementation.
-
-Do not execute browser/manual smoke tests automatically.
+   It describes the code at the end of One-by-one; Dev-handoff later surfaces only
+   meaningful changes to it. No separate artifact.
+3. **What I would test manually**: 3–7 high-signal scenarios from the Spec and actual
+   implementation. Do not run them automatically.
 
 ## Completion contract
 
-Each chunk ends the response: teach it, preview the next one, stop. Never implement
-two chunks in one response.
-
-After the final explanation/checkpoint, stop. JARVIS closes the response with its card
-and waits for the user. Do not start or select the next workflow stage.
-
-When JARVIS is active, all One-by-one content must appear before the JARVIS transition
-card. Nothing may appear after the card.
+Each chunk ends the response: teach it, preview the next one, stop — never two chunks
+in one response. After the final output, stop. JARVIS closes the response with its card
+(nothing after it) and waits for the user. Do not start or select the next stage.
 
 ## Suite convention
 

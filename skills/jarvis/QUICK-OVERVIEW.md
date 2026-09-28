@@ -39,8 +39,7 @@ Mentor    = NEW CLEAN CHAT
 Everything else = SAME HOME CHAT
 ```
 
-## Ownership rule
+## Turn rule
 
-Use `tour` whenever you want more contact with the code.
-
-Default tour is one compact response, not an extra multi-turn ceremony.
+One message → one step. `go` runs the previewed item, `continue` runs the card's Next.
+Every reply ends with the JARVIS card.

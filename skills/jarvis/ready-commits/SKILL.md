@@ -10,51 +10,25 @@ description: >-
 
 ## Preconditions
 
-Expected in the full pipeline:
-
-```text
-Mentor-me: Ready for commits
-Polish: Pipeline-ready for changed files
-```
-
-If not current, return control to JARVIS instead of calling the branch ready.
+Requires a current `Ready for commits` Mentor verdict and a completed Polish. If
+either is stale, stop and hand back to JARVIS instead of calling the branch ready.
 
 ## Git rule
 
-Read-only Git only.
-
-Never run:
-
-```text
-git add
-git commit
-git reset
-git restore
-git checkout
-git stash
-```
-
-Commands shown for staging are instructions for the user.
+Read-only Git only. Never run `git add`, `git commit`, `git reset`, `git restore`,
+`git checkout`, or `git stash` — staging commands are instructions for the user.
 
 ## First: final ownership overview
 
-Before commit chunks, show a compact map of related code:
+Before the commits, show a compact map grouped by runtime/responsibility story, not
+directories:
 
 | Code group | Responsibility | Why it changed |
 |---|---|---|
 | `...` | ... | ... |
 
-Group files by runtime/responsibility story, not directories.
-
-Then show a short front-to-back feature flow when useful:
-
-```text
-UI entry → state/domain owner → request/service boundary → result
-```
-
-No Mermaid by default.
-
-This is the final ownership checkpoint before commits.
+Add a one-line front-to-back flow when useful
+(`UI entry → state/domain owner → service boundary → result`). No Mermaid.
 
 ## Commit plan
 
@@ -130,18 +104,11 @@ user can copy them. Message blocks contain only the message; the user runs
 Account for every changed/untracked file either in a commit or in a left-unstaged
 section.
 
-
 ## Completion contract
 
-After the complete commit plan, stop. JARVIS closes the response with its card and
-waits for the user.
-
-Do not commit and do not start or select the next workflow stage — Dev-handoff always
-waits for a later message.
-
-When JARVIS is active, Ready-commits content — including all commit message options
-and staging instructions — must appear **before** the JARVIS transition card. Nothing
-may appear after the card.
+When the full plan is shown, stop. JARVIS closes the response with its card (nothing
+after it) and waits for the user. Do not start or select the next stage — Dev-handoff
+always waits for a later message.
 
 ## Suite convention
 

@@ -65,47 +65,13 @@ The developer commits manually.
 
 ## Session model
 
-JARVIS deliberately keeps chat/session rules simple.
+JARVIS deliberately keeps chat/session rules simple:
 
-```text
-Blueprint = FORK current chat
-Mentor    = NEW CLEAN CHAT
-Everything else = SAME HOME CHAT
-```
-
-### Home chat
-
-The normal implementation conversation:
-
-```text
-Speculation
-One-by-one
-Manual Try-out
-Grunt-work
-Refine
-Eye-candy
-Polish
-Ready-commits
-Dev-handoff
-```
-
-Use one capable coding model for normal HOME work.
-
-### Blueprint fork
-
-Blueprint is the planning boundary.
-
-Fork the current conversation and switch to the strongest available planning/reasoning model. The fork gets the existing problem context, but remains planner-only and never implements production code.
-
-When `blueprint.md` is ready, return to the HOME chat.
-
-### Mentor clean chat
-
-Initial Mentor-me review starts in a brand-new clean chat with a strong review/reasoning model.
-
-This intentionally removes the implementation conversation's explanations and anchoring. The reviewer reconstructs the feature from durable artifacts, current code, tests, and repository rules.
-
-The same Mentor chat can be reused later to verify findings after fixes.
+| Session | Runs | Model |
+|---|---|---|
+| **Home chat** | everything except Blueprint and Mentor-me | one capable coding model |
+| **Blueprint fork** | Blueprint only; the fork keeps the problem context but never implements | strongest planning model |
+| **Mentor clean chat** | Mentor-me; a brand-new chat without implementation-chat anchoring, rebuilt from artifacts, code, tests, and repo rules; reused to verify fixes | strongest review model |
 
 ## One source of truth
 
@@ -155,66 +121,17 @@ Next              short preview of the next chunk
 
 Technical terms should be explained briefly when they matter instead of assuming the developer already knows every piece of vocabulary.
 
-## Code Tour
-
-`tour` is an optional read-only walkthrough for getting more direct contact with the code.
-
-```text
-tour
-```
-
-It normally gives 3–6 important stops in one response. Each stop identifies the file/symbol, what to look at, what responsibility lives there, and where the flow goes next.
-
-The tour reuses the current implementation context when possible, does not modify code, and does not run additional checks by default.
-
-For a slower walkthrough:
-
-```text
-tour step
-```
-
-This shows one code stop at a time and waits for `continue`.
-
-Diagrams are optional. Mermaid is not part of the default explanation style.
-
 ## Refine safety
 
-Refine is powerful because it is allowed to delete and consolidate generated code. That also makes it one of the highest-risk cleanup stages.
-
-Non-trivial reductions therefore use a **Behavior Lock**:
-
-```text
-identify behavior that must remain true
-        ↓
-identify relevant Spec rule / code path
-        ↓
-use focused baseline verification when available
-        ↓
-reduce the implementation
-        ↓
-run the same relevant verification again
-```
-
-If a reduction changes observable behavior or cannot be kept with reasonable confidence, it should not remain.
+Refine may delete and consolidate generated code, which makes it one of the riskiest cleanup stages. Non-trivial reductions therefore use a **Behavior Lock**: name the behavior that must stay true, run focused verification before and after, and drop any reduction that changes observable behavior or can't be verified with reasonable confidence.
 
 Mentor-me runs after Refine and Eye-candy, so the independent review sees the code that is actually intended to ship.
 
 ## Mentor validity
 
-A clean Mentor verdict only applies to the code that was reviewed.
+A clean Mentor verdict only applies to the code that was reviewed. Any later **semantic change** — behavior, control flow, state ownership, component/hook architecture, API/data contracts, or non-trivial error handling — invalidates it.
 
-Any later **semantic code change** invalidates that verdict.
-
-Semantic changes include meaningful changes to:
-
-- behavior,
-- control flow,
-- state ownership,
-- component/hook architecture,
-- API or data contracts,
-- non-trivial error handling.
-
-Polish is therefore mechanical-only. If it discovers a problem that requires a semantic change, JARVIS routes the issue back to the appropriate stage and Mentor verifies the result again.
+Polish is therefore mechanical-only. If it finds a problem that needs a semantic change, JARVIS routes it back to the right stage and Mentor verifies again.
 
 ## Task artifacts
 
@@ -250,11 +167,8 @@ The small command set is intentionally predictable:
 ```text
 jarvis      start or recover the workflow
 status      show current phase/stage
-continue    advance through the current transition
+continue    run the one step named on the last card
 go          authorize exactly one implementation/fix/cleanup unit
-tour        compact code walkthrough
-tour step   interactive code walkthrough
-map         optional dependency/flow visualization
 skip        skip an explicitly optional item
 back        return to the appropriate earlier stage
 stop        stop modifications and show current state
@@ -262,33 +176,11 @@ stop        stop modifications and show current state
 
 ## Specialist skills
 
-The JARVIS suite currently contains:
-
-```text
-jarvis/
-speculation/
-blueprint/
-one-by-one/
-grunt-work/
-refine/
-eye-candy/
-mentor-me/
-polish/
-ready-commits/
-dev-handoff/
-```
-
-The `jarvis` skill is the orchestrator. The others are specialists.
-
-Install the complete suite together so the orchestrator can hand work to the appropriate specialist.
+The `jarvis` skill is the orchestrator; the others are specialists. Install the complete suite together so the orchestrator can hand work to the appropriate specialist.
 
 ## Installation
 
-JARVIS is designed to stay as host-independent as practical.
-
-The exact skill directory depends on the editor or coding agent. Copy the complete JARVIS suite into the location your host uses for custom skills/instructions and preserve the folder structure.
-
-Conceptually:
+JARVIS is designed to stay as host-independent as practical. Copy the complete suite into the location your editor or coding agent uses for custom skills and preserve the folder structure:
 
 ```text
 <skill-root>/
