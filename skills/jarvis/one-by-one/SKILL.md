@@ -1,10 +1,10 @@
 ---
 name: one-by-one
 description: >-
-  Implements an approved Blueprint one coherent chunk per go while teaching each
-  chunk immediately with a fixed message: linked changed files, focused annotated
-  code, before/after flow, and a short plain-language summary. Stops and hands back
-  to JARVIS when implementation ends.
+  Implements an approved Blueprint one coherent chunk per go while teaching the code
+  immediately after it is created with a fixed message: linked changed files, a short
+  plain-language summary, focused annotated code, a tiny before/after flow, checks,
+  and the next chunk. Stops and hands back to JARVIS when implementation ends.
 ---
 
 # One-by-one — Build with Ownership
@@ -12,25 +12,26 @@ description: >-
 ## Goal
 
 The developer should understand the feature **while it is being built**, not learn a
-finished diff afterwards. After each chunk they know why the code exists, where it
-sits, what changed, which code matters, and what behaves differently.
+finished diff afterwards. After each chunk they know what was built and why, where it
+sits in the flow, which code is worth recognizing later, what behaves differently, and
+where to start debugging if it breaks.
 
-Teach with a few connected sentences, focused code, and a tiny before/after flow — not
-a wall of prose, a raw diff, or a code dump. Explain unfamiliar technical terms briefly
-in normal language.
+Give the mental model **before** the code, then make it concrete with focused code and
+a tiny before/after flow — not a wall of prose, a raw diff, or a code dump. Explain
+unfamiliar technical terms briefly in normal language.
 
-### Chat annotations, not production comments
+## Chat annotations, not production comments
 
 When an excerpt is easier to understand with comments, add teaching comments inside
 the **chat code block** only:
 
 ```ts
 // 1. Compare the actual content, not only the array reference.
-const nextKey = buildContentKey(nextItems)
+const nextKey = buildContentKey(nextItems);
 
 // 2. Nothing meaningful changed, so keep the existing value.
 if (nextKey === previousKey) {
-  return previousItems
+  return previousItems;
 }
 ```
 
@@ -75,44 +76,57 @@ JARVIS instead of silently redesigning.
 
 After implementation, every chunk uses exactly these sections, in this order, every
 time — in the current chat language (titles too). Do not drop, merge, rename, or
-reorder them.
+reorder them. The only exception: omit **Checks** when no meaningful check ran.
 
-````markdown
+```markdown
 ### Chunk N/M — <title> ✓
 
 **Changed files**
+
 - [`path/to/owner.ts`](path/to/owner.ts) — what this file now does for the chunk
 - [`path/to/owner.test.ts`](path/to/owner.test.ts) — what the test protects
 - `path/to/old-helper.ts` — deleted, because …
+
+**In short**
+<3–5 simple connected sentences>
 
 **Important code**
 <1–3 focused excerpts with chat-only teaching comments>
 
 **Before → after**
-<tiny text flow>
-
-**In short**
-<3–5 simple sentences>
+<tiny runtime/behavior flow>
 
 **Checks**
+
 - <only checks actually run>
 
 **Next: Chunk N+1/M — <title>**
 <2–3 sentence preview>
-````
+```
 
-The JARVIS card follows directly. On the last chunk, the **Final output** replaces the
-Next section.
+The files give a quick map of the chunk, the summary gives the idea, the code and flow
+make it concrete. The JARVIS card follows directly. On the last chunk, the **Final
+output** replaces the Next section.
 
 **Changed files** — every file created, modified, or deleted, including tests,
-locales, and config. One line each: clickable link + its role in this chunk. Deleted
-files get no link and say why they went.
+locales, and config. One compact line each: clickable link + its role in this chunk.
+Deleted files get no link and say why they went.
+
+**In short** — 3–5 simple, connected sentences of plain prose: no bullets, no file
+list, no jargon (or explain a term in the same sentence), no review-note labels like
+`Owns:` / `Fix:`. Tell it like to a teammate: the gap before, what the chunk does
+now, why this is the right responsibility boundary, how it fits the feature so far.
+The last sentence says where to look first if this behavior breaks.
+
+Occasionally, when it genuinely reinforces the mental model, add one small ownership
+question after the paragraph (e.g. "If this started firing twice tomorrow, which layer
+would you inspect first?"). Never syntax trivia; it never blocks the next `go`.
 
 **Important code** — the code the developer should recognize later: the new control
 point, state owner, boundary, or transformation. Roughly 5–20 meaningful lines per
-excerpt; no full files, trivial imports, or boilerplate. If only one file holds the
-idea, show only that one; if several files each own part of the flow, show one small
-excerpt per responsibility.
+excerpt; no full files, trivial imports, or boilerplate; one small excerpt per
+meaningful responsibility. When a direct comparison teaches something important, show
+a short annotated old/new pair of the control point — never a raw diff.
 
 **Before → after** — the mental model, not a second implementation explanation:
 
@@ -124,17 +138,9 @@ AFTER
 stream tick → compare content → unchanged → reuse existing input
 ```
 
-When there is no useful "before", use `NOW entry → new owner → boundary/result`.
+When there is no useful "before", use `NOW entry → new owner → boundary → result`.
 
-**In short** — 3–5 simple, connected sentences of plain prose: no bullets, no file
-list, no jargon (or explain a term in the same sentence), no review-note labels like
-`Owns:` / `Fix:`. Tell it like to a teammate: the gap before, what the chunk does
-now, why this is the right place, how it fits the feature so far. The last sentence
-says where to look first if this behavior breaks.
-
-Occasionally, when it genuinely reinforces the mental model, add one small ownership
-question after the paragraph (e.g. "If this started firing twice tomorrow, which layer
-would you inspect first?"). Never syntax trivia; it never blocks the next `go`.
+**Checks** — only checks actually run.
 
 **Next** — 2–3 sentences: why it comes next, where it sits, current → target behavior.
 
@@ -158,6 +164,7 @@ After the last chunk, do not re-teach every file. Show:
 
    It describes the code at the end of One-by-one; Dev-handoff later surfaces only
    meaningful changes to it. No separate artifact.
+
 3. **What I would test manually**: 3–7 high-signal scenarios from the Spec and actual
    implementation. Do not run them automatically.
 

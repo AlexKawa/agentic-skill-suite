@@ -1,6 +1,9 @@
 # JARVIS — Quick Overview
 
 ```text
+(pre)
+  Context Tour  ── read-only, skippable
+      ↓
 SHAPE
   Speculation
       ↓

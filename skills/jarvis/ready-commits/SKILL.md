@@ -24,8 +24,8 @@ Before the commits, show a compact map grouped by runtime/responsibility story, 
 directories:
 
 | Code group | Responsibility | Why it changed |
-|---|---|---|
-| `...` | ... | ... |
+| ---------- | -------------- | -------------- |
+| `...`      | ...            | ...            |
 
 Add a one-line front-to-back flow when useful
 (`UI entry → state/domain owner → service boundary → result`). No Mermaid.
@@ -55,14 +55,17 @@ For each commit include:
 1–2 sentences: what coherent behavior/responsibility this commit establishes.
 
 **Files**
+
 - [`path/to/file.ts`](path/to/file.ts) — what it contributes
 
 **Stage**
+
 ```bash
 git add path/to/file.ts path/to/file.test.ts
 ```
 
 **Message A**
+
 ```text
 feat(magic-chat): keep the chat input stable while streaming
 
@@ -71,6 +74,7 @@ previous array when nothing changed, so the input stops re-rendering.
 ```
 
 **Message B**
+
 ```text
 fix(magic-chat): stop input flicker during streamed replies
 

@@ -11,6 +11,9 @@ It is intentionally **not** a fully autonomous coding loop. The agent handles ex
 JARVIS keeps the full workflow, but groups it into five easy-to-remember phases:
 
 ```text
+(pre)
+Context Tour — read-only orientation, not a phase
+
 SHAPE
 Speculation → Blueprint
 
@@ -26,6 +29,10 @@ Mentor-me
 SHIP
 Polish → Ready-commits → manual commits → Dev-handoff
 ```
+
+### Context Tour
+
+A new task starts with a read-only **Tour** of the code the task touches, so developer and agent begin from the real runtime and ownership boundaries instead of assumptions. It can be skipped (`skip tour`) and used again at any point as a recap (`tour`, `tour step`) without changing the workflow position.
 
 ### SHAPE
 
@@ -112,9 +119,9 @@ After every chunk, the developer sees the same fixed message:
 
 ```text
 Changed files     every file, linked, with a one-line role
+In short          3–5 simple sentences explaining the chunk
 Important code    1–3 focused excerpts with chat-only teaching comments
 Before → after    tiny runtime/behavior flow
-In short          3–5 simple sentences explaining the chunk
 Checks            only checks actually run
 Next              short preview of the next chunk
 ```
@@ -169,14 +176,15 @@ jarvis      start or recover the workflow
 status      show current phase/stage
 continue    run the one step named on the last card
 go          authorize exactly one implementation/fix/cleanup unit
-skip        skip an explicitly optional item
+skip        skip exactly one current step (never Mentor review gates)
+tour        read-only code walkthrough; tour step = one stop per continue
 back        return to the appropriate earlier stage
 stop        stop modifications and show current state
 ```
 
 ## Specialist skills
 
-The `jarvis` skill is the orchestrator; the others are specialists. Install the complete suite together so the orchestrator can hand work to the appropriate specialist.
+The `jarvis` skill is the orchestrator; `tour` is a read-only utility; the others are specialists. Install the complete suite together so the orchestrator can hand work to the appropriate specialist.
 
 ## Installation
 
@@ -185,6 +193,7 @@ JARVIS is designed to stay as host-independent as practical. Copy the complete s
 ```text
 <skill-root>/
 ├── jarvis/
+├── tour/
 ├── speculation/
 ├── blueprint/
 ├── one-by-one/

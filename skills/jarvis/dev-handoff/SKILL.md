@@ -63,37 +63,48 @@ notation, no generic flowchart.
 # Dev Handoff — Feature
 
 ## 60-second overview
+
 Problem → outcome → actual solution shape.
 
 ## Runtime flow
+
 4–8 short steps from entry to observable result.
 
 ## Ownership map
+
 | Code group | Owns | Important invariant |
-|---|---|---|
+| ---------- | ---- | ------------------- |
 
 ## Understanding delta
+
 Omit when no earlier checkpoint exists.
 
 ## Key decisions
+
 Only decisions future maintainers need.
 
 ## Review order / key files
+
 3–5 important code groups with why to start there.
 
 ## Commit story
+
 Actual commits and what each establishes.
 
 ## How to verify
+
 3–6 high-signal scenarios.
 
 ## Follow-ups / deferred
+
 Only important open items + link to follow-ups.md.
 
 ## Out of scope
+
 Only still-useful boundaries.
 
 ## Visual feature brief
+
 The ready-to-paste image prompt.
 ```
 
