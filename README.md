@@ -24,9 +24,12 @@ The skills focus on a few recurring principles:
 
 JARVIS is a structured developer workflow for taking a well-scoped task from idea to implementation and handoff.
 
-It combines product clarification, repository-aware planning, incremental implementation, code ownership, cleanup, independent review, mechanical polish, commit preparation, and developer handoff.
+It combines a read-only code orientation, product clarification, repository-aware planning, incremental implementation, code ownership, cleanup, independent review, mechanical polish, commit preparation, and developer handoff.
 
 ```text
+(pre)
+Context Tour — read-only orientation
+
 SHAPE
 Speculation → Blueprint
 
@@ -40,7 +43,7 @@ REVIEW
 Mentor-me
 
 SHIP
-Polish → Ready-commits → Dev-handoff
+Polish → Ready-commits → manual commits → Dev-handoff
 ```
 
 JARVIS is intentionally not a fully autonomous coding loop. It uses explicit checkpoints where developer understanding or ownership matters, while avoiding unnecessary approvals for routine mechanical work.
@@ -54,7 +57,9 @@ agentic-skill-suite/
 ├── skills/
 │   ├── jarvis/
 │   │   ├── README.md
+│   │   ├── QUICK-OVERVIEW.md
 │   │   ├── jarvis/
+│   │   ├── tour/
 │   │   ├── speculation/
 │   │   ├── blueprint/
 │   │   ├── one-by-one/
