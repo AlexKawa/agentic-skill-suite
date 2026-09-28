@@ -94,11 +94,10 @@ A clean no-op is valid.
 
 ## Completion contract
 
-Say:
+After the output, stop. JARVIS closes the response with its card and waits for the
+user.
 
-> Refine complete. Return control to JARVIS.
-
-Do not select the next workflow stage.
+Do not start or select the next workflow stage.
 
 ## Suite convention
 

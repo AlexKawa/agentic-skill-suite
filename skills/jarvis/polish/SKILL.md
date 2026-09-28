@@ -77,11 +77,11 @@ List:
 
 ## Completion contract
 
-Say:
+After the output, stop. JARVIS closes the response with its card and waits for the
+user.
 
-> Polish complete. Return control to JARVIS.
-
-Do not select the next workflow stage.
+Do not start or select the next workflow stage — Ready-commits always waits for a
+later message.
 
 ## Suite convention
 

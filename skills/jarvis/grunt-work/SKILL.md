@@ -89,11 +89,12 @@ No code for an escalated item.
 
 ## Completion contract
 
-When all items are Fixed / Escalated / Deferred / Duplicate, summarize counts and say:
+Each root cause ends the response: fix it, preview the next item, stop.
 
-> Grunt-work complete. Return control to JARVIS.
+When all items are Fixed / Escalated / Deferred / Duplicate, summarize counts, then
+stop. JARVIS closes the response with its card and waits for the user.
 
-Do not select the next workflow stage.
+Do not start or select the next workflow stage.
 
 ## Suite convention
 

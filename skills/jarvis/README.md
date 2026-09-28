@@ -61,7 +61,7 @@ It looks for correctness issues, architectural drift, security problems, lifecyc
 
 The developer commits manually.
 
-**Dev-handoff** writes the final concise mental model of the branch: runtime flow, ownership boundaries, important decisions, review order, verification, and relevant follow-ups.
+**Dev-handoff** writes the final concise mental model of the branch: runtime flow, ownership boundaries, important decisions, review order, verification, and relevant follow-ups. In chat it also gives a copy-paste PR title and description.
 
 ## Session model
 
@@ -119,13 +119,16 @@ At workflow boundaries, JARVIS uses a consistent transition card:
 
 ```text
 ──────────────── JARVIS ────────────────
-BUILD · One-by-one · Chunk 2/4
+✓ SHAPE  ▶ BUILD  · CLEAN  · REVIEW  · SHIP
+Stage:   One-by-one · Chunk 2/4 done
+Next:    Chunk 3 · Persist draft on blur
 Session: SAME CHAT · coding model
-Next: Chunk 3
-Action: `go`
+Action:  go
 ```
 
-For a session boundary it also tells the developer exactly whether to fork, create a new chat, switch model, and which prompt to start with.
+The phase rail always shows where the task stands. For a session boundary the card also tells the developer whether to fork, create a new chat, or switch model; the start prompt sits in its own copyable block right above the card.
+
+Every HOME reply in an active task ends with this card, and one user message advances at most one step. A tiny `work/{work-id}/jarvis-state.md` mirrors the last card so the flow survives long or summarized chats.
 
 ## Developer ownership
 
@@ -139,27 +142,15 @@ A central goal of JARVIS is that the developer should be able to answer:
 
 One-by-one therefore explains code through **runtime and responsibility flow**, not only through diffs.
 
-After a typical chunk, the developer sees:
+After every chunk, the developer sees the same fixed message:
 
 ```text
-What changed
-
-How this chunk flows
-1. Entry point receives the action
-2. State/domain owner handles the lifecycle
-3. Boundary prepares or validates the data
-4. Service/API performs the external work
-5. Result returns to the UI
-
-Who owns what
-Code | Responsibility | Why changed
-
-Important code
-Only the genuinely important functions/hooks
-
-Checks
-
-Next chunk
+Changed files     every file, linked, with a one-line role
+Important code    1–3 focused excerpts with chat-only teaching comments
+Before → after    tiny runtime/behavior flow
+In short          3–5 simple sentences explaining the chunk
+Checks            only checks actually run
+Next              short preview of the next chunk
 ```
 
 Technical terms should be explained briefly when they matter instead of assuming the developer already knows every piece of vocabulary.
@@ -231,6 +222,7 @@ Each JARVIS task gets one work directory:
 
 ```text
 work/{work-id}/
+├── jarvis-state.md
 ├── spec.md
 ├── blueprint.md
 ├── follow-ups.md

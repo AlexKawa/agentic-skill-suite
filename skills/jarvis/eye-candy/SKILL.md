@@ -64,9 +64,8 @@ reduction/residue question   → Refine
 
 ## Completion contract
 
-Say:
-
-> Eye-candy complete. Return control to JARVIS.
+When all accepted candidates are done (or the scan is clean), stop. JARVIS closes the
+response with its card and waits for the user.
 
 Do not select Mentor-me yourself; JARVIS owns the session transition.
 

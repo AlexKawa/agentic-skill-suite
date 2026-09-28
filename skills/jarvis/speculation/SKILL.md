@@ -76,11 +76,10 @@ work/{work-id}/follow-ups.md
 
 ## Completion contract
 
-Summarize the approved Spec in chat and say:
+Summarize the approved Spec in chat, then stop. JARVIS closes the response with its
+card and waits for the user.
 
-> Speculation complete. Return control to JARVIS.
-
-Do not tell the user which workflow stage comes next. JARVIS owns ordering.
+Do not start or name the next workflow stage yourself. JARVIS owns ordering.
 
 ## Suite convention
 
